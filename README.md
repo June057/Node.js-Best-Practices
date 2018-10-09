@@ -43,7 +43,6 @@ This document contains latest Node.js practices list to be followed
 
 Partition your code into components, each gets its own folder or a dedicated codebase, and ensure that each unit is kept small and simple. Visit 'Read More' below to see examples of correct project structure 
 
-Read More 
 
  
 
@@ -63,7 +62,6 @@ Don't mix layers by passing the web layer objects (Express req, res) to business
 
 Otherwise: App that mixes web objects with other layers can not be accessed by testing code, CRON jobs and other non-Express callers 
 
-Read More 
 
 ## 3.3 Separate Express 'app' and 'server' 
 
@@ -77,7 +75,6 @@ For even better structure, locate your API declaration within components
 
 Otherwise: Your API will be accessible for testing via HTTP calls only (slower and much harder to generate coverage reports). It probably won't be a big pleasure to maintain hundreds of lines of code in a single file 
 
-Read More 
 
  
 
@@ -93,7 +90,6 @@ A perfect and flawless configuration setup should ensure
 
 There are a few packages that can help tick most of those boxes like rc, nconf and config 
 
-Read More 
 
  
 
@@ -107,7 +103,6 @@ TL;DR: Handling async errors in callback style is probably the fastest way to he
 
 Otherwise: Node.js callback style, function(err, response), is a promising way to un-maintainable code due to the mix of error handling with casual code, excessive nesting and awkward coding patterns 
 
-🔗 Read More: avoiding callbacks 
 
  
 
@@ -117,7 +112,6 @@ TL;DR: Many throws errors as a string or as some custom type – this complicate
 
 Otherwise: When invoking some component, being uncertain which type of errors come in return – it makes proper error handling much harder. Even worse, using custom types to describe errors might lead to loss of critical error information like the stack trace! 
 
-🔗 Read More: using the built-in error object 
 
  
  
@@ -129,7 +123,6 @@ TL;DR: Operational errors (e.g. API received an invalid input) refer to known ca
 
 Otherwise: You may always restart the application when an error appears, but why let ~5000 online users down because of a minor, predicted, operational error? the opposite is also not ideal – keeping the application up when an unknown issue (programmer error) occurred might lead to an unpredicted behavior. Differentiating the two allows acting tactfully and applying a balanced approach based on the given context 
 
-🔗 Read More: operational vs programmer error 
 
  
  
@@ -140,7 +133,6 @@ TL;DR: Error handling logic such as mail to admin and logging should be encapsul
 
 Otherwise: Not handling errors within a single place will lead to code duplication and probably to improperly handled errors 
 
-🔗 Read More: handling errors in a centralized place 
 
  
  
@@ -151,7 +143,6 @@ TL;DR: Let your API callers know which errors might come in return so they can h
 
 Otherwise: An API client might decide to crash and restart only because he received back an error he couldn’t understand. Note: the caller of your API might be you (very typical in a microservice environment) 
 
-🔗 Read More: documenting errors in Swagger 
 
  
  
@@ -163,7 +154,6 @@ TL;DR: When an unknown error occurs (a developer error, see best practice number
 
 Otherwise: When an unfamiliar exception is caught, some object might be in a faulty state (e.g an event emitter which is used globally and not firing events anymore due to some internal failure) and all future requests might fail or behave crazily 
 
-🔗 Read More: shutting the process 
 
  
  
@@ -175,7 +165,6 @@ TL;DR: A set of mature logging tools like Winston, Bunyan or Log4J, will speed-u
 
 Otherwise: Skimming through console.logs or manually through messy text file without querying tools or a decent log viewer might keep you busy at work until late 
 
-🔗 Read More: using a mature logger 
  
 
  ## 4.8 Test error flows using your favorite test framework 
@@ -184,7 +173,6 @@ TL;DR: Whether professional automated QA or plain manual developer testing – E
 
 Otherwise: Without testing, whether automatically or manually, you can’t rely on our code to return the right errors. Without meaningful errors – there’s no error handling 
 
-🔗 Read More: testing error flows 
 
  
  
@@ -196,7 +184,6 @@ TL;DR: Monitoring and performance products (a.k.a APM) proactively gauge your co
 
 Otherwise: You might spend great effort on measuring API performance and downtimes, probably you’ll never be aware which are your slowest code parts under real-world scenario and how these affect the UX 
 
-🔗 Read More: using APM products 
 
  
  
@@ -208,7 +195,6 @@ TL;DR: Any exception thrown within a promise will get swallowed and discarded un
 
 Otherwise: Your errors will get swallowed and leave no trace. Nothing to worry about 
 
-🔗 Read More: catching unhandled promise rejection 
 
  
 
@@ -217,8 +203,6 @@ Otherwise: Your errors will get swallowed and leave no trace. Nothing to worry a
 TL;DR: This should be part of your Express best practices – Assert API input to avoid nasty bugs that are much harder to track later. The validation code is usually tedious unless you are using a very cool helper library like Joi 
 
 Otherwise: Consider this – your function expects a numeric argument “Discount” which the caller forgets to pass, later on, your code checks if Discount!=0 (amount of allowed discount is greater than zero), then it will allow the user to enjoy a discount. OMG, what a nasty bug. Can you see it? 
-
-🔗 Read More: failing fast 
 
  
 
@@ -262,7 +246,6 @@ Code Example
 
 Otherwise: Deferring from this best practice might lead to unexpected results, as seen in the StackOverflow thread below: 
 
-🔗 Read more: "Why does a results vary based on curly brace placement?" (Stackoverflow) 
 
  
  
@@ -312,7 +295,6 @@ TL;DR: Using const means that once a variable is assigned, it cannot be reassign
 
 Otherwise: Debugging becomes way more cumbersome when following a variable that frequently changes 
 
-🔗 Read more: JavaScript ES6+: var, let, or const? 
 
  
  
@@ -361,7 +343,6 @@ TL;DR: Node 8 LTS now has full support for Async-await. This is a new way of dea
 
 Otherwise: Handling async errors in callback style is probably the fastest way to hell - this style forces to check errors all over, deal with awkward code nesting and make it difficult to reason about the code flow 
 
-🔗Read more: Guide to async await 1.0 
 
  
  
@@ -373,7 +354,6 @@ TL;DR: Though it's recommended to use async-await and avoid function parameters 
 
 Otherwise: Longer code (in ES5 functions) is more prone to bugs and cumbersome to read 
 
-🔗 Read mode: It’s Time to Embrace Arrow Functions 
 
  
 ## 5.13 Use Util And Config File Separately 
@@ -428,7 +408,6 @@ TL;DR: Your continuous integration platform (CICD) will host all the quality too
 
 Otherwise: Choosing some niche vendor might get you blocked once you need some advanced customization. On the other hand, going with Jenkins might burn precious time on infrastructure setup 
 
-🔗 Read More: Choosing CI platform 
 
 ## 6.4 Constantly inspect for vulnerable dependencies 
 
@@ -490,7 +469,6 @@ TL;DR: Make use of security-related linter plugins such as eslint-plugin-securit
 
 Otherwise: What could have been a straightforward security weakness during development becomes a major issue in production. Also, the project may not follow consistent code security practices, leading to vulnerabilities being introduced, or sensitive secrets committed into remote repositories 
 
-🔗 Read More: Lint rules 
 
  
  
@@ -504,7 +482,6 @@ TL;DR: DOS attacks are very popular and relatively easy to conduct. Implement ra
 
 Otherwise: An application could be subject to an attack resulting in a denial of service where real users receive a degraded or unavailable service. 
 
-🔗 Read More: Implement rate limiting 
 
  
  
@@ -515,7 +492,6 @@ TL;DR: Never store plain-text secrets in configuration files or source code. Ins
 
 Otherwise: Source control, even for private repositories, can mistakenly be made public, at which point all secrets are exposed. Access to source control for an external party will inadvertently provide access to related systems (databases, apis, services, etc). 
 
-🔗 Read More: Secret management 
 
  
  
@@ -527,7 +503,6 @@ TL;DR: To prevent SQL/NoSQL injection and other malicious attacks, always make u
 
 Otherwise: Unvalidated or unsanitized user input could lead to operator injection when working with MongoDB for NoSQL, and not using a proper sanitization system or ORM will easily allow SQL injection attacks, creating a giant vulnerability. 
 
-🔗 Read More: Query injection prevention using ORM/ODM libraries 
 
  
  
@@ -537,7 +512,6 @@ Otherwise: Unvalidated or unsanitized user input could lead to operator injectio
 
 TL;DR: These is a collection of security advice that are not related directly to Node.js - the Node implementation is not much different than any other language. Click read more to skim through. 
 
-🔗 Read More: Common security best practices 
 
  
 
@@ -547,7 +521,6 @@ TL;DR: Your application should be using secure headers to prevent attackers from
 
 Otherwise: Attackers could perform direct attacks on your application's users, leading huge security vulnerabilities 
 
-🔗 Read More: Using secure headers in your application 
 
  
  
@@ -559,7 +532,6 @@ TL;DR: With the npm ecosystem it is common to have many dependencies for a proje
 
 Otherwise: An attacker could detect your web framework and attack all its known vulnerabilities. 
 
-🔗 Read More: Dependency security 
 
 ## 7.8. Avoid using the Node.js crypto library for handling passwords, use Bcrypt 
 
@@ -567,7 +539,6 @@ TL;DR: Passwords or secrets (API keys) should be stored using a secure hash + sa
 
 Otherwise: Passwords or secrets that are persisted without using a secure function are vulnerable to brute forcing and dictionary attacks that will lead to their disclosure eventually. 
 
-🔗 Read More: Use Bcrypt 
 
  
  
@@ -579,7 +550,6 @@ TL;DR: Untrusted data that is sent down to the browser might get executed instea
 
 Otherwise: An attacker might store a malicious JavaScript code in your DB which will then be sent as-is to the poor clients 
 
-🔗 Read More: Escape output 
 
  
  
@@ -589,7 +559,6 @@ TL;DR: Validate the incoming requests' body payload and ensure it qualifies the 
 
 Otherwise: Your generosity and permissive approach greatly increases the attack surface and encourages the attacker to try out many inputs until they find some combination to crash the application 
 
-🔗 Read More: Validate incoming JSON schemas 
 
  
  
@@ -600,7 +569,6 @@ TL;DR: When using JSON Web Tokens (for example, with Passport.js), by default th
 
 Otherwise: Expired, or misplaced tokens could be used maliciously by a third party to access an application and impersonate the owner of the token. 
 
-🔗 Read More: Blacklist JSON Web Tokens 
 
  
  
@@ -611,7 +579,6 @@ TL;DR: A brute force protection middleware such as express-brute should be used 
 
 Otherwise: An attacker can issue unlimited automated password attempts to gain access to privileged accounts on an application 
 
-🔗 Read More: Login rate limiting 
 
  
  
@@ -622,7 +589,6 @@ TL;DR: There is a common scenario where Node.js runs as a root user with unlimit
 
 Otherwise: An attacker who manages to run a script on the server gets unlimited power over the local machine (e.g. change iptable and re-route traffic to his server) 
 
-🔗 Read More: Run Node.js as non-root user 
 
  
  
@@ -634,7 +600,6 @@ TL;DR: The bigger the body payload is, the harder your single thread works in pr
 
 Otherwise: Your application will have to deal with large requests, unable to process the other important work it has to accomplish, leading to performance implications and vulnerability towards DOS attacks 
 
-🔗 Read More: Limit payload size 
 
  
  
@@ -646,7 +611,6 @@ TL;DR: eval is evil as it allows executing a custom JavaScript code during run t
 
 Otherwise: Malicious JavaScript code finds a way into a text passed into eval or other real-time evaluating JavaScript language functions, and will gain complete access to JavaScript permissions on the page. This vulnerability is often manifested as an XSS attack. 
 
-🔗 Read More: Avoid JavaScript eval statements 
 
  
  
@@ -656,7 +620,6 @@ TL;DR: Regular Expressions, while being handy, pose a real threat to JavaScript 
 
 Otherwise: Poorly written regexes could be susceptible to Regular Expression DoS attacks that will block the event loop completely. For example, the popular moment package was found vulnerable with malicious RegEx usage in November of 2017 
 
-🔗 Read More: Prevent malicious RegEx 
 
  
  
@@ -668,7 +631,6 @@ TL;DR: Avoid requiring/importing another file with a path that was given as para
 
 Otherwise: Malicious user input could find its way to a parameter that is used to require tampered files, for example a previously uploaded file on the filesystem, or access already existing system files. 
 
-🔗 Read More: Safe module loading 
 
  
  
@@ -680,7 +642,6 @@ TL;DR: When tasked to run external code that is given at run-time (e.g. plugin),
 
 Otherwise: A plugin can attack through an endless variety of options like infinite loops, memory overloading, and access to sensitive process environment variables 
 
-🔗 Read More: Run unsafe code in a sandbox 
 
  
  
@@ -692,7 +653,6 @@ TL;DR: Avoid using child processes when possible and validate and sanitize input
 
 Otherwise: Naive use of child processes could result in remote command execution or shell injection attacks due to malicious user input passed to an unsanitized system command. 
 
-🔗 Read More: Be cautious when working with child processes 
 
  
  
@@ -704,7 +664,6 @@ TL;DR: An integrated express error handler hides the error details by default. H
 
 Otherwise: Sensitive application details such as server file paths, third party modules in use, and other internal workflows of the application which could be exploited by an attacker, could be leaked from information found in a stack trace 
 
-🔗 Read More: Hide error details from client 
 
  
  
@@ -726,7 +685,6 @@ TL;DR: Each web framework and technology has its known weaknesses - telling 
 
 Otherwise: Cookies could be sent over insecure connections, and an attacker might use session identification to identify the underlying framework of the web application, as well as module-specific vulnerabilities 
 
-🔗 Read More: Cookie and session security 
 
  
  
